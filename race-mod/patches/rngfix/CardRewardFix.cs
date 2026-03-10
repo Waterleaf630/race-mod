@@ -176,14 +176,17 @@ namespace racemod.race_mod.patches.rngfix
         [HarmonyPatch(typeof(GoldReward), "Populate")]
         public static class Patch6
         {
-            public static bool Prefix(GoldReward __instance, ref Task __result)
+            public static void Prefix(GoldReward __instance)
             {
-                AccessTools.Field(typeof(GoldReward), "<Amount>k__BackingField").SetValue(__instance,
-                    myRng.NextInt(
-                   (int)AccessTools.Field(typeof(GoldReward), "_min").GetValue(__instance),
-                   (int)AccessTools.Field(typeof(GoldReward), "_max").GetValue(__instance) + 1));
-                __result = Task.CompletedTask;
-                return false;
+                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance, myRng);
+            }
+        }
+        [HarmonyPatch(typeof(RelicReward), "Populate")]
+        public static class Patch7
+        {
+            public static void Prefix(RelicReward __instance)
+            {
+                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance,myRng);
             }
         }
         public static float GetBaseOdds(CardRarityOddsType type, CardRarity rarity)
