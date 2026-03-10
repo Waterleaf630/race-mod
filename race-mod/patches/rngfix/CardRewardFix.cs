@@ -108,6 +108,10 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static bool Prefix(CardRarityOddsType type, ref CardRarity __result)
             {
+                if (type == CardRarityOddsType.Shop)
+                {
+                    return true;
+                }
                 float num = myRng.NextFloat();
                 if (num < GetBaseOdds(type, CardRarity.Rare))
                 {
@@ -129,6 +133,10 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static bool Prefix(CardRarityOddsType type, float offset, ref CardRarity __result)
             {
+                if(type == CardRarityOddsType.Shop)
+                {
+                    return true;
+                }
                 float num = myRng.NextFloat();
                 float num2 = GetBaseOdds(type, CardRarity.Rare) + offset;
                 if (num < num2)

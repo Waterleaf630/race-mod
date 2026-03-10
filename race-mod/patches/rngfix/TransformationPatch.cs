@@ -52,10 +52,13 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static bool Prefix(RunRngSet __instance, RunRngType rngType, ref Rng __result)
             {
-                if (rngType == RunRngType.Niche)
+                if (RunManager.Instance.IsSinglePlayerOrFakeMultiplayer)
                 {
-                    __result = MyNiche;
-                    return false;
+                    if (rngType == RunRngType.Niche)
+                    {
+                        __result = MyNiche;
+                        return false;
+                    }
                 }
                 return true;
             }
