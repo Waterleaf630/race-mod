@@ -158,10 +158,10 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static bool Prefix(PotionRewardOdds __instance, Player player, AscensionManager ascensionManager, RoomType roomType, ref bool __result)
             {
-                Log.Warn(myRng.Counter.ToString());
+                Rng potionRng = new Rng((uint)(SLManager.pf.gameSeed + 400 + FollowSave.pf.regularCount + FollowSave.pf.eliteCount + FollowSave.pf.bossCount));
                 float currentValue = __instance.CurrentValue;
                 bool flag = Hook.ShouldForcePotionReward(player.RunState, player, roomType);
-                float num = myRng.NextFloat();
+                float num = potionRng.NextFloat();
                 if (num < currentValue || flag)
                 {
                     AccessTools.Field(typeof(PotionRewardOdds), "<CurrentValue>k__BackingField").SetValue(__instance, __instance.CurrentValue - 0.1f);
