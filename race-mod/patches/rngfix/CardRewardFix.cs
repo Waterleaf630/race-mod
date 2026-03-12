@@ -197,6 +197,14 @@ namespace racemod.race_mod.patches.rngfix
                 AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance,myRng);
             }
         }
+        [HarmonyPatch(typeof(PotionReward), "Populate")]
+        public static class Patch8
+        {
+            public static void Prefix(PotionReward __instance)
+            {
+                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance, myRng);
+            }
+        }
         public static float GetBaseOdds(CardRarityOddsType type, CardRarity rarity)
         {
             return type switch
