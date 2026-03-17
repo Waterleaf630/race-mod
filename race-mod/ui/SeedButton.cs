@@ -82,8 +82,14 @@ namespace racemod.race_mod.ui
 
         private void OnPressed()
         {
-            if(!input.Visible)
+            if (!input.Visible)
+            {
                 ShowSeedPopup();
+                input.Text = "";
+                currentSeed = "";
+                seedLabel.Text = "";
+            }
+                
             else
             {
                 currentSeed = input.Text;

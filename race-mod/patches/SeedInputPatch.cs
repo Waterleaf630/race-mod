@@ -30,7 +30,10 @@ namespace racemod.race_mod.patches
             {
                 if (btn.input.Visible)
                 {
-                    return false;
+                    if (!string.IsNullOrEmpty(btn.input.Text))
+                    {
+                        __instance.Lobby.SetSeed(btn.input.Text);
+                    }
                 }
                 if (!string.IsNullOrEmpty(btn.currentSeed))
                 {
