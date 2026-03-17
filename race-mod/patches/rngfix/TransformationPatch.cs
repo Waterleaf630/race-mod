@@ -37,6 +37,7 @@ namespace racemod.race_mod.patches.rngfix
                         CardRarity rarity2 = c.Rarity;
                         return (uint)(rarity2 - 2) <= 2u;
                     });
+                    
                 }
                 if (isInCombat)
                 {
