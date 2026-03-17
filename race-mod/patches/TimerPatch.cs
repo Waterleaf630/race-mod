@@ -55,10 +55,6 @@ namespace racemod.race_mod.patches
         {
             public static void Postfix(NRun __instance, float delta)
             {
-                if(RunManager.Instance.IsGameOver)
-                {
-                    isRunning = false;
-                }
                 if(isRunning)
                     runTime += delta;
                 NRunTimer timer = __instance.GlobalUi.TopBar.Timer;
@@ -109,6 +105,7 @@ namespace racemod.race_mod.patches
                 var field2 = AccessTools.Field(typeof(NTopBarFloorIcon), "_runState");
                 IRunState state = (IRunState)field2.GetValue(NRun.Instance.GlobalUi.TopBar.FloorIcon);
                 quote.Text = "进入第 " + state.TotalFloor.ToString() + " 层时间：" + Decode(SLManager.pf.LastEnterTime);
+                isRunning = false;
             }
         }
         [HarmonyPatch(typeof(Hook), "AfterCombatVictory")]
