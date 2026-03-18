@@ -25,6 +25,24 @@ namespace racemod.race_mod.patches.rngfix
     public static class TransformationPatch
     {
         public static Rng MyNiche;
+
+
+        [HarmonyPatch(typeof(RunManager), "InitializeNewRun")]
+        public static class Patch0
+        {
+            public static void Postfix()
+            {
+                MyNiche = new Rng(SLManager.pf.gameSeed);
+            }
+        }
+        [HarmonyPatch(typeof(RunManager), "InitializeSavedRun")]
+        public static class Patch00
+        {
+            public static void Postfix()
+            {
+                MyNiche = new Rng(FollowSave.pf.nicheSeed,FollowSave.pf.nicheCount);
+            }
+        }
         [HarmonyPatch(typeof(CardFactory), "GetFilteredTransformationOptions")]
         public static class Patch1
         {
@@ -66,6 +84,7 @@ namespace racemod.race_mod.patches.rngfix
                 return true;
             }
         }
+
         [HarmonyPatch(typeof(PandorasBox), "AfterObtained")]
         public static class Patch3
         {

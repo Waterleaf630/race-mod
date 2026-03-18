@@ -14,5 +14,8 @@ namespace racemod.race_mod.save
 
         public uint rngSeed { get; set; }
         public int rngCount { get; set; }
+
+        public uint nicheSeed { get; set; }
+        public int nicheCount { get; set; }
     }
 }

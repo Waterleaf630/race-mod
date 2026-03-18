@@ -18,6 +18,8 @@ namespace racemod.race_mod.save
         {
             pf.rngSeed = CardRewardFix.myRng.Seed;
             pf.rngCount = CardRewardFix.myRng.Counter;
+            pf.nicheSeed = TransformationPatch.MyNiche.Seed;
+            pf.nicheCount = TransformationPatch.MyNiche.Counter;
             string json = System.Text.Json.JsonSerializer.Serialize(pf);
             var file = FileAccess.Open("user://racemod2.json", FileAccess.ModeFlags.Write);
             file.StoreString(json);
