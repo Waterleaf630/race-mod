@@ -1,7 +1,0 @@
-{ 
-"pck_name": "race-mod", 
-  "name": "比赛Mod", 
-  "author": "Waterleaf", 
-  "description": "精确到毫秒计时；\n死亡时显示进入层数和时间；\nSL 限制；\n修复若干变牌随机数问题；\n增加『输入种子』按钮；\n三层boss打完停表；\n尝试稳定了发牌随机数。", 
-  "version": "v0.3" 
-} 
