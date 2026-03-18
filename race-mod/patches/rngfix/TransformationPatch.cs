@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Rngs;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Helpers;
@@ -14,6 +15,7 @@ using MegaCrit.Sts2.Core.Runs;
 using racemod.race_mod.save;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,15 +73,9 @@ namespace racemod.race_mod.patches.rngfix
             {
                 MyNiche = new Rng(SLManager.pf.gameSeed + 100003);
             }
-            [HarmonyPatch(typeof(CombatState), "CreateCreature")]
-            public static class Patch4
-            {
-                public static void Prefix(MonsterModel monster)
-                {
-                    MyNiche = new Rng(SLManager.pf.gameSeed + (uint)StringHelper.GetDeterministicHashCode(monster.ToString()));
-                }
-            }
         }
+
+       
         [HarmonyPatch(typeof(Astrolabe), "AfterObtained")]
         public static class Patch5
         {
