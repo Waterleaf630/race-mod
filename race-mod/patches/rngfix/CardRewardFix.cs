@@ -28,6 +28,7 @@ namespace racemod.race_mod.patches.rngfix
     public static class CardRewardFix
     {
         public static Rng myRng;
+        public static Rng potionRng;
 
         [HarmonyPatch(typeof(RunManager), "InitializeNewRun")]
         public static class Patch0
@@ -158,7 +159,7 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static bool Prefix(PotionRewardOdds __instance, Player player, AscensionManager ascensionManager, RoomType roomType, ref bool __result)
             {
-                Rng potionRng = new Rng((uint)(SLManager.pf.gameSeed + 400 + FollowSave.pf.regularCount + FollowSave.pf.eliteCount + FollowSave.pf.bossCount));
+                potionRng = new Rng((uint)(SLManager.pf.gameSeed + 400 + FollowSave.pf.regularCount + FollowSave.pf.eliteCount + FollowSave.pf.bossCount));
                 float currentValue = __instance.CurrentValue;
                 bool flag = Hook.ShouldForcePotionReward(player.RunState, player, roomType);
                 float num = potionRng.NextFloat();
@@ -194,7 +195,7 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static void Prefix(RelicReward __instance)
             {
-                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance,myRng);
+                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance,new Rng(myRng.Seed));
             }
         }
         [HarmonyPatch(typeof(PotionReward), "Populate")]
@@ -202,7 +203,7 @@ namespace racemod.race_mod.patches.rngfix
         {
             public static void Prefix(PotionReward __instance)
             {
-                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance, myRng);
+                AccessTools.Field(typeof(Reward), "_rngOverride").SetValue(__instance, potionRng);
             }
         }
         public static float GetBaseOdds(CardRarityOddsType type, CardRarity rarity)
