@@ -28,7 +28,8 @@ namespace racemod.race_mod.patches.rngfix
                 creature.CombatId = (uint)field.GetValue(__instance);
                 field.SetValue(__instance, creature.CombatId + 1);
                 creature.CombatState = __instance;
-                monster.Rng = new Rng((uint)((__instance.RunState.Rng.Seed + StringHelper.GetDeterministicHashCode(__instance.Encounter.Id.Entry) + creature.CombatId)));
+                uint seed = (uint)(__instance.RunState.Rng.Seed + StringHelper.GetDeterministicHashCode(__instance.Encounter.Id.Entry) + creature.CombatId);
+                monster.Rng = new Rng(seed);
                 if (side == CombatSide.Enemy)
                 {
                     int res = monster.Rng.NextInt(monster.MinInitialHp, monster.MaxInitialHp + 1);
