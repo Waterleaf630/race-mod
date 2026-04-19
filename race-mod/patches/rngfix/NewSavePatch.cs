@@ -25,10 +25,9 @@ namespace racemod.race_mod.patches.rngfix
         [HarmonyPatch(typeof(ActModel), "GetRandomList")]
         public static class Patch1
         {
-            public static bool Prefix(string seed, ref IEnumerable<ActModel> __result)
+            public static bool Prefix(Rng rng, ref IEnumerable<ActModel> __result)
             {
                 List<ActModel> res = ActModel.GetDefaultList().ToList();
-                Rng rng = new Rng((uint)StringHelper.GetDeterministicHashCode(seed));
                 if(rng.NextBool()) res[0] = ModelDb.Act<Underdocks>();
                 __result = res;
                 return false;

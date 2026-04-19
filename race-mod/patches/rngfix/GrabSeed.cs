@@ -15,9 +15,9 @@ namespace racemod.race_mod.patches.rngfix
         [HarmonyPatch(typeof(RunRngSet), MethodType.Constructor, new Type[] { typeof(string) })]
         public static class Patch
         {
-            public static void Prefix(string seed)
+            public static void Postfix(RunRngSet __instance)
             {
-                SLManager.pf.gameSeed = (uint)StringHelper.GetDeterministicHashCode(seed);
+                SLManager.pf.gameSeed = __instance.Seed;
                 SLManager.save();
             }
         }
